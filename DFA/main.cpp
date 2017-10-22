@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <cassert>
-#include "TransitionTable.hpp"
-#include "Automata.hpp"
+#include <Automata/TransitionTable.hpp>
+#include <Automata/Automata.hpp>
 
 using TransTable = TransitionTable<std::string, char>;
 using Automaton = Automata<TransTable>;
