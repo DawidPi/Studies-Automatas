@@ -20,8 +20,8 @@ public:
             mCurrentStates({initialState})
             {}
 
-    const State& currentState(){
-        return *mCurrentStates.begin();
+    const States& currentStates(){
+        return mCurrentStates;
     }
 
     void setAcceptingStates(const States& states){
@@ -40,7 +40,7 @@ public:
             newStates.insert(statesFromState.begin(), statesFromState.end());
         }
 
-        mCurrentStates = newStates;
+        mCurrentStates.swap(newStates);
     }
 
 private:

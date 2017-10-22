@@ -17,7 +17,10 @@ public:
     using Key = std::pair<State, Transition>;
 
     void pushTransition(const Key& key, const States& states) {
-        mTransitionMap.insert({key, states});
+        if(mTransitionMap.find(key) == mTransitionMap.end())
+            mTransitionMap.insert({key, states});
+        else
+            mTransitionMap[key].insert(states.begin(), states.end());
     }
 
     const States& fetchNextStates(const Key& stateTransitionPair){

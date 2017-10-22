@@ -53,7 +53,7 @@ int main() {
         }else{
             std::cout << "letter: " << fetchedLetter << std::endl;
             automata.update(fetchedLetter);
-            std::cout << "state: " << automata.currentState() << "[" << (automata.isAccepted()?'A':'N') << "]" << std::endl;
+            std::cout << "state: " << *automata.currentStates().begin() << "[" << (automata.isAccepted()?'A':'N') << "]" << std::endl;
         }
 
     }
