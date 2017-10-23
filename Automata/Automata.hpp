@@ -24,6 +24,7 @@ public:
         return mCurrentStates;
     }
 
+
     void setAcceptingStates(const States& states){
         mAcceptingStates = states;
     }

@@ -77,31 +77,31 @@ int main() {
     Automaton automata(transitionTable, states[0]);
     automata.setAcceptingStates({states[1], states[3], states[5], states[6], states[8], states[9], states[10], states[11]});
 
-    char exitCharacter{'c'};
-    assert(alphabet.find(exitCharacter) == alphabet.end());
+    // standard input is a file: http://www.linfo.org/standard_input.html
+    std::string fileData(std::istreambuf_iterator<char>(std::cin), std::istreambuf_iterator<char>());
+    std::cout << "filesize: " << fileData.size() << std::endl;
+    std::cout << fileData << std::endl;
 
-    while(true){
-        std::cout<< "Podaj literę [" << exitCharacter << " to close]: " << std::flush;
-        char fetchedLetter = fetchNextLetter();
-        bool letterNotFoundInAlphabet = alphabet.find(fetchedLetter) == alphabet.end();
-        if(letterNotFoundInAlphabet){
-            if(fetchedLetter == exitCharacter){
-                std::cout << "exiting..." << std::endl;
-                return 0;
-            } else {
-                std::cout << "letter not in alphabet" << std::endl;
+    auto currentChar = fileData.begin();
+    std::cout << "new input" << std::endl;
+    while(currentChar != fileData.end()){
+        if(*currentChar == '#'){
+            automata = Automaton(transitionTable, states[0]);
+            automata.setAcceptingStates({states[1], states[3], states[5], states[6], states[8], states[9], states[10], states[11]});
+            std::cout << std::endl << "new input" << std::endl;
+        } else if(alphabet.find(*currentChar) == alphabet.end()){
+            std::cerr << "letter not in alphabet" << std::endl;
+        } else{
+            std::cout << "letter: " << *currentChar << std::endl;
+            automata.update(*currentChar);
+            std::cout << "current states:" << std::endl;
+            for(const auto& state : automata.currentStates()){
+                std::cout << state << std::endl;
             }
-            if(!std::cin){
-                std::cin.clear();
-            }
-        }else{
-            std::cout << "letter: " << fetchedLetter << std::endl;
-            automata.update(fetchedLetter);
-            for(const auto& state : automata.currentStates())
-                std::cout << "states: " << state << std::endl;
-            std::cout << "[" << (automata.isAccepted()?'A':'N') << "]" << std::endl;
+            std::cout << "accepted [" << (automata.isAccepted() ? "A" : "N") << "]" << std::endl;
         }
 
+        currentChar++;
     }
 
     return 0;
