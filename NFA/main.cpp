@@ -106,9 +106,3 @@ int main() {
 
     return 0;
 }
-
-char fetchNextLetter() {
-    char fetchedLetter;
-    while(isspace(fetchedLetter = std::cin.get()));
-    return fetchedLetter;
-}
