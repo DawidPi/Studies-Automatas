@@ -33,4 +33,8 @@ int main(){
 
     Turing machine(tape, transitionTable, "q0"s);
 
+    for(auto& element : machine.getCurrentTape()){
+        std::cout << static_cast<int>(element) << std::endl;
+    }
+
 };
