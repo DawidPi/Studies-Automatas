@@ -15,16 +15,20 @@ public:
 
 private:
     using Key = std::pair<State, TapeElement>;
-    using Value = std::tuple<State, TapeElement, HeadTransition>;
+
+    struct Value{
+        State state;
+        TapeElement writeElement;
+        HeadTransition headTransition;
+    };
 
 public:
     using Action = Value;
-    using State = Key;
 
     void addTransition(State startingState, TapeElement readElement,
                        State nextState, TapeElement writeElement, HeadTransition transition){
         auto key = std::make_pair(std::move(startingState), std::move(readElement));
-        auto value = std::make_tuple(std::move(nextState), std::move(writeElement), std::move(transition));
+        auto value = Value{.state = std::move(nextState), .writeElement=std::move(writeElement), .headTransition=std::move(transition)};
 
         mTransitionMap.insert({std::move(key), std::move(value)});
     }
